@@ -23,14 +23,19 @@ then add a number field for 'Click Count'
 and a date field for 'Last Click Date'
 
 Setup your PING URL Like this:
-http://yourdomain.com/clickcount.php?id=[contact_id]&clickcount=[Click Count]&lastclickdate=[Last Click Date]
+http://clickstats.co/kinostats/transactioncount.php?id=[contact_id]&transactions=[Number of Transactions]&last_amount=[Amount of Last Purchase]&spent=[Total Spent]
 
 */
 
 //GET variables from URL
 $contact_id = $_GET["id"];
 $oldCount = $_GET["transactions"];
-	
+$last_amount = $_GET["last_amount"];
+	$last_amount = substr($last_amount, 1); //remove $ sign
+	$last_amount = str_replace(",", "", $last_amount); //remove commas from the numbers
+$totalSpent = $_GET["spent"];
+	$totalSpent = substr($totalSpent, 1);
+	$totalSpent = str_replace(",", "", $totalSpent);	
 
 //Write the exact URL being pinged to stats_log file 
 $filename = '/home/stats/public_html/kinostats/logs/transactioncount_log';
@@ -45,7 +50,8 @@ $filename = '/home/stats/public_html/kinostats/logs/transactioncount_log';
 
 
 //Do math - add one to current number of purchases
-$newCount=$oldCount+1;
+$newCount = $oldCount+1;
+$newSpent = $totalSpent + $last_amount;
 
 
 $data = <<<STRING
@@ -53,6 +59,7 @@ $data = <<<STRING
 <contact id="$contact_id">
 <Group_Tag name="RFM">
 <field name="Number of Transactions">$newCount</field>
+<field name="Total Spent">$newSpent</field>
 </Group_Tag>
 </contact>
 STRING;
