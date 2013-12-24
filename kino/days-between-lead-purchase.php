@@ -29,13 +29,29 @@ http://clickstats.co/kinostats/days-between-lead-purchase.php?id=[contact_id]&da
 	echo 'Old Date = '.$MDYDate."<br>";	
 	//echo "date added = ".$dateAdded.'<br/>';
 
-// Convert date from M-D-Y to D-M-Y
-$date = DateTime::createFromFormat('m-d-y', $MDYDate);
-$new_date = $date->format('d-m-Y');
-$dateAdded = $new_date;
+$pieces = explode("-", $MDYDate);
+echo 'month 0 = '.$pieces[0].'<br/>';
+echo 'day 1 = '.$pieces[1].'<br/>';
+echo 'year 2 = '.$pieces[2].'<br/>';
+$timestamp = $pieces[1].'-'.$pieces[0].'-'.$pieces[2];
+echo 'timestamp = '.$timestamp.'<br/>';
+$timestamp = strtotime($timestamp);
+echo 'as unix = '.$timestamp.'<br/>';
+$now = time();
+echo 'now as unix = '.$now.'<br/>';
+$diff = $now-$timestamp;
+$diff = floor($diff/86400);
+echo 'diff is '.$diff.'<br/>';
+//$timestamp = mktime(0,0,0,$pieces[1], $pieces[0], $pieces[2]);
+//$newDateStr = date("m-d-Y", $timestamp);
 
-echo 'Old Date = '.$MDYDate."<br>";
-echo 'New Date = '.$dateAdded."<br/>";
+
+// Convert date from M-D-Y to D-M-Y
+//$date = DateTime::createFromFormat('m-d-y', $MDYDate);
+//$new_date = $date->format('d-m-Y');
+//$dateAdded = $new_date;
+
+echo 'New Date = '.$newDateStr."<br/>";
 	
 	/*
 	//$m = substr($dateAdded,0,2);
