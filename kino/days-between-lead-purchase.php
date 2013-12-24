@@ -26,47 +26,14 @@ http://clickstats.co/kinostats/days-between-lead-purchase.php?id=[contact_id]&da
 //GET variables from URL
 	$contact_id = $_GET["id"];
 	$MDYDate = $_GET["dateadded"];
-	echo 'Old Date = '.$MDYDate."<br>";	
-	//echo "date added = ".$dateAdded.'<br/>';
 
-$pieces = explode("-", $MDYDate);
-echo 'month 0 = '.$pieces[0].'<br/>';
-echo 'day 1 = '.$pieces[1].'<br/>';
-echo 'year 2 = '.$pieces[2].'<br/>';
+$pieces = explode("-", $MDYDate);	
 $timestamp = $pieces[1].'-'.$pieces[0].'-'.$pieces[2];
-echo 'timestamp = '.$timestamp.'<br/>';
 $timestamp = strtotime($timestamp);
-echo 'as unix = '.$timestamp.'<br/>';
 $now = time();
-echo 'now as unix = '.$now.'<br/>';
 $diff = $now-$timestamp;
 $diff = floor($diff/86400);
-echo 'diff is '.$diff.'<br/>';
-//$timestamp = mktime(0,0,0,$pieces[1], $pieces[0], $pieces[2]);
-//$newDateStr = date("m-d-Y", $timestamp);
-
-
-// Convert date from M-D-Y to D-M-Y
-//$date = DateTime::createFromFormat('m-d-y', $MDYDate);
-//$new_date = $date->format('d-m-Y');
-//$dateAdded = $new_date;
-
-echo 'New Date = '.$newDateStr."<br/>";
-	
-	/*
-	//$m = substr($dateAdded,0,2);
-	//$d = substr($dateAdded,3,2);
-	//$y = substr($dateAdded,6,4);
-	//$dateAdded = $d."-".$m."-".$y;  //Change to new string of DD-MM-YYYY
-		//echo '$dateAdded reformated = '.$dateAdded.'<br/>';
-	$dateNow = time(); //Set todays date in UNIX time format
-		//echo 'dateNow = '.$dateNow.'<br/>';
-	$dateAdded = strtotime ($dateAdded); //Change dateAdded to UNIX time format
-		//echo 'strtotime dateAdded = '.$dateAdded.'<br/>';
-	$diff = $dateNow - $dateAdded; //Calculate time difference in seconds
-	$diff_in_days = ($diff/86400); //Calculate time difference in days
-	$diff_in_days = round($diff_in_days); //Round off the number of days
-		//echo 'diff in days = '.$diff_in_days.'<br/>';
+$diff_in_days = $diff;
 
 //Write the exact URL being pinged to stats_log file 
 $filename = '/home/stats/public_html/kinostats/logs/days-between-lead-purchase_log';
@@ -112,7 +79,7 @@ header("Content-Type: text/xml");
 echo $response;
 
 
-*/
+
 
 ?>
 

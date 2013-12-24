@@ -26,35 +26,29 @@ http://clickstats.co/kinostats/days-between-last-purchase-now.php?id=[contact_id
 	$dateAdded = $_GET["datepurchase"];
 	$diff_in_days = 0;	
 
-	//echo "date added = ".$dateAdded.'<br/>';
-
-/* 09-03-2013 is Sept 3, 2013
- * PHP reads it as March 9, 2013
- * Convert to DD-MM-YY
-*/ 
-	date_default_timezone_set('America/New_York');
-	$m = substr($dateAdded,0,2);
-	$d = substr($dateAdded,3,2);
-	$y = substr($dateAdded,6,4);
-	$dateAdded = $d."-".$m."-".$y;  //Change to new string of DD-MM-YYYY
-		//echo '$dateAdded reformated = '.$dateAdded.'<br/>';
-	$dateNow = time(); //Set todays date in UNIX time format
-		//echo 'dateNow = '.$dateNow.'<br/>';
-	$dateAdded = strtotime ($dateAdded); //Change dateAdded to UNIX time format
-		//echo 'strtotime dateAdded = '.$dateAdded.'<br/>';
-	$diff = $dateNow - $dateAdded; //Calculate time difference in seconds
-	$diff_in_days = ($diff/86400); //Calculate time difference in days
-	$diff_in_days = floor($diff_in_days); //Round off the number of days
-		//echo 'diff in days = '.$diff_in_days.'<br/>';
+//convert date to D-M-Y format
+	$pieces = explode("-", $dateAdded);	
+	$timestamp = $pieces[1].'-'.$pieces[0].'-'.$pieces[2];
+	$temp = $timestamp;
+	$timestamp = strtotime($timestamp);
+	$now = time();
+	$diff = $now-$timestamp;
+	$diff = floor($diff/86400);
+	$diff_in_days = $diff;
 	$dateLastPurchase = time();
 
+/*
+	echo 'month '.$pieces[0].'<br/>';
+	echo 'day '.$pieces[1].'<br/>';
+	echo 'year'.$pieces[2].'<br/>';
+	echo 'timestamp '.$timestamp.'<br/>';
+	echo 'now '.$now.'<br/>';
+	echo 'diff '.$diff.'<br/>';
+	echo 'diff in days '.$diff_in_days.'<br/>';
+*/
 
-	if($diff_in_days<1) {
-		$diff_in_days=0;
-	}
-	
 //Write the exact URL being pinged to stats_log file 
-$filename = '/home/stats/public_html/kinostats/logs/days-between-2-3_log';
+$filename = '/home/stats/public_html/kinostats/logs/days-between-last-purchase-now_log';
 	date_default_timezone_set('America/New_York');
 	$logDate = date('l jS \of F Y h:i:s A');
 	//$addr = "http://".$_SERVER['SERVER_NAME']."/".$_SERVER['REQUEST_URI']."?".$_SERVER['QUERY_STRING'];

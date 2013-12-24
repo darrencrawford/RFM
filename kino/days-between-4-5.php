@@ -25,26 +25,14 @@ http://clickstats.co/kinostats/days-between-lead-purchase.php?id=[contact_id]&da
 	$contact_id = $_GET["id"];
 	$dateAdded = $_GET["datepurchase"];
 
-	//echo "date added = ".$dateAdded.'<br/>';
-
-/* 09-03-2013 is Sept 3, 2013
- * PHP reads it as March 9, 2013
- * Convert to DD-MM-YY
-*/ 
-	date_default_timezone_set('America/New_York');
-	$m = substr($dateAdded,0,2);
-	$d = substr($dateAdded,3,2);
-	$y = substr($dateAdded,6,4);
-	$dateAdded = $d."-".$m."-".$y;  //Change to new string of DD-MM-YYYY
-		//echo '$dateAdded reformated = '.$dateAdded.'<br/>';
-	$dateNow = time(); //Set todays date in UNIX time format
-		//echo 'dateNow = '.$dateNow.'<br/>';
-	$dateAdded = strtotime ($dateAdded); //Change dateAdded to UNIX time format
-		//echo 'strtotime dateAdded = '.$dateAdded.'<br/>';
-	$diff = $dateNow - $dateAdded; //Calculate time difference in seconds
-	$diff_in_days = ($diff/86400); //Calculate time difference in days
-	$diff_in_days = round($diff_in_days); //Round off the number of days
-		//echo 'diff in days = '.$diff_in_days.'<br/>';
+//convert date to D-M-Y format
+	$pieces = explode("-", $dateAdded);	
+	$timestamp = $pieces[1].'-'.$pieces[0].'-'.$pieces[2];
+	$timestamp = strtotime($timestamp);
+	$now = time();
+	$diff = $now-$timestamp;
+	$diff = floor($diff/86400);
+	$diff_in_days = $diff;
 
 //Write the exact URL being pinged to stats_log file 
 $filename = '/home/stats/public_html/kinostats/logs/days-between-4-5_log';
