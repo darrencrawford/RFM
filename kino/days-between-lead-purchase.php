@@ -21,20 +21,27 @@ http://clickstats.co/kinostats/days-between-lead-purchase.php?id=[contact_id]&da
 
 */
 
+
+
 //GET variables from URL
 	$contact_id = $_GET["id"];
-	$dateAdded = $_GET["dateadded"];
-
+	$MDYDate = $_GET["dateadded"];
+	echo 'Old Date = '.$MDYDate."<br>";	
 	//echo "date added = ".$dateAdded.'<br/>';
 
-/* 09-03-2013 is Sept 3, 2013
- * PHP reads it as March 9, 2013
- * Convert to DD-MM-YY
-*/ 
-	$m = substr($dateAdded,0,2);
-	$d = substr($dateAdded,3,2);
-	$y = substr($dateAdded,6,4);
-	$dateAdded = $d."-".$m."-".$y;  //Change to new string of DD-MM-YYYY
+// Convert date from M-D-Y to D-M-Y
+$date = DateTime::createFromFormat('m-d-y', $MDYDate);
+$new_date = $date->format('d-m-Y');
+$dateAdded = $new_date;
+
+echo 'Old Date = '.$MDYDate."<br>";
+echo 'New Date = '.$dateAdded."<br/>";
+	
+	/*
+	//$m = substr($dateAdded,0,2);
+	//$d = substr($dateAdded,3,2);
+	//$y = substr($dateAdded,6,4);
+	//$dateAdded = $d."-".$m."-".$y;  //Change to new string of DD-MM-YYYY
 		//echo '$dateAdded reformated = '.$dateAdded.'<br/>';
 	$dateNow = time(); //Set todays date in UNIX time format
 		//echo 'dateNow = '.$dateNow.'<br/>';
@@ -89,7 +96,7 @@ header("Content-Type: text/xml");
 echo $response;
 
 
-
+*/
 
 ?>
 
