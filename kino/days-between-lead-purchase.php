@@ -25,7 +25,7 @@ http://clickstats.co/kinostats/days-between-lead-purchase.php?id=[contact_id]&da
 	$contact_id = $_GET["id"];
 	$dateAdded = $_GET["dateadded"];
 
-	echo "date added = {$dateAdded}";
+	//echo "date added = ".$dateAdded.'<br/>';
 
 /* 09-03-2013 is Sept 3, 2013
  * PHP reads it as March 9, 2013
@@ -35,14 +35,17 @@ http://clickstats.co/kinostats/days-between-lead-purchase.php?id=[contact_id]&da
 	$d = substr($dateAdded,3,2);
 	$y = substr($dateAdded,6,4);
 	$dateAdded = $d."-".$m."-".$y;  //Change to new string of DD-MM-YYYY
-	$dateNow = today(); //Set todays date in UNIX time format
+		//echo '$dateAdded reformated = '.$dateAdded.'<br/>';
+	$dateNow = time(); //Set todays date in UNIX time format
+		//echo 'dateNow = '.$dateNow.'<br/>';
 	$dateAdded = strtotime ($dateAdded); //Change dateAdded to UNIX time format
+		//echo 'strtotime dateAdded = '.$dateAdded.'<br/>';
 	$diff = $dateNow - $dateAdded; //Calculate time difference in seconds
 	$diff_in_days = ($diff/86400); //Calculate time difference in days
-
+	$diff_in_days = round($diff_in_days); //Round off the number of days
+		//echo 'diff in days = '.$diff_in_days.'<br/>';
 
 //Write the exact URL being pinged to stats_log file 
-/*
 $filename = '/home/stats/public_html/kinostats/logs/days-between-lead-purchase_log';
 	date_default_timezone_set('America/New_York');
 	$logDate = date('l jS \of F Y h:i:s A');
@@ -50,10 +53,10 @@ $filename = '/home/stats/public_html/kinostats/logs/days-between-lead-purchase_l
 	$addr = "/".$_SERVER['REQUEST_URI'];
 	$write = $logDate." - ".$addr."\n";
 	file_put_contents ( $filename ,  $write , FILE_APPEND | LOCK_EX);
-*/
+
 
 //Echo Outputs to Screen
-	echo 'Diff in Days = {$diff_in_days}<br/>';	
+	//echo 'Diff in Days = '.$diff_in_days.'<br/>';	
 
 
 $data = <<<STRING
@@ -86,7 +89,7 @@ header("Content-Type: text/xml");
 echo $response;
 
 
-*/
+
 
 ?>
 
