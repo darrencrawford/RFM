@@ -59,6 +59,13 @@ $data = <<<STRING
 </contact>
 STRING;
 
+	return $data;
+}
+
+
+
+function api_call($contact_id, $data, $appid, $key) {
+	
 	$data = urlencode(urlencode($data));
 
 	// Replace the strings with your API credentials located in Admin > OfficeAutoPilot API Instructions and Key Manager
@@ -81,14 +88,10 @@ STRING;
 }
 
 
-
-function api_call($data) {
-	
-}
-
-
 if ($rfm = 1) {
-	days_between_1($contact_id, $date_purchase, $appid, $key);
+	$data = days_between_1($contact_id, $date_purchase, $appid, $key);
+	sleep(1);
+	api_call($contact_id, $data, $appid, $key);
 	
 	//api_call($data);
 }
