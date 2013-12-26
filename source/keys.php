@@ -3,5 +3,5 @@
 
 	$appid = "2_11369_H4sKVMEiL";
 	$key = "5VgmlzqqiY55TuI";
-
+	$install_location = 'http://clickstats.co/kinostats/'  //Make sure to include the trailing / at the end of the URL
 ?>

@@ -192,6 +192,48 @@ STRING;
 
 
 //Average days between transactions
+function average_days_between($contact_id, $appid, $key) {
+	/*
+	 * Calculate the average days between transactions for the first 5 transactions
+	 * http://example.com/stats/rfm1.php?id=[contact_id]&rfm=averagedaysbetween&transactions=[Number of Transactions]&lead_to_purchase=[Days between Lead and Purchase]&purchases2=[Days between Purchases 1 and 2]&purchases3=[Days between Purchases 2 and 3]&purchases4=[Days between Purchases 3 and 4]&purchases5=[Days between Purchases 4 and 5]
+	*/
+
+	//GET variables from URL
+	$transactions = $_GET["transactions"];
+	$lead_to_purchase = $_GET['lead_to_purchase'];
+	$purchases2 = $_GET['purchases2'];
+	$purchases3 = $_GET['purchases3'];
+	$purchases4 = $_GET['purchases4'];
+	$purchases5 = $_GET['purchases5'];
+
+
+		if ($transactions==1) {
+			$average_transaction = $lead_to_purchase;
+		} elseif ($transactions==2) {
+			$average_transaction = (($lead_to_purchase+$purchases2)/2);
+		} elseif ($transactions==3) {
+			$average_transaction = (($lead_to_purchase+$purchases2+$purchases3)/3);
+		} elseif ($transactions==4) {
+			$average_transaction = (($lead_to_purchase+$purchases2+$purchases3+$purchases4)/4);
+		} elseif ($transactions>=5) {
+			$average_transaction = (($lead_to_purchase+$purchases2+$purchases3+$purchases4+$purchases5)/5);
+		}
+
+	$average_transaction = round($average_transaction);
+	//echo 'Avg Trans = '.$average_transaction;
+
+
+$data = <<<STRING
+//You must pass the contact ID as an argument to indicate which contact is being updated
+<contact id="$contact_id">
+<Group_Tag name="RFM">
+<field name="Average Days Between Purchases">$average_transaction</field>
+</Group_Tag>
+</contact>
+STRING;
+
+	api_call($contact_id, $data, $appid, $key);
+}
 
 //Clickcount Goes Here
 
@@ -278,6 +320,8 @@ if ($rfm == 'daysbetween1-2') {
 	} elseif ($rfm == 'daysbetweenlastnow') {
 		$date_purchase = $_GET["datepurchase"];
 		days_between_last_now($contact_id, $date_purchase, $appid, $key);
+	} elseif ($rfm == 'averagedaysbetween') {
+		average_days_between($contact_id, $appid, $key);
 	}
 
 

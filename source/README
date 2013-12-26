@@ -9,5 +9,14 @@ daysbetween2-3 		= Days Between Purchases 2 and 3
 daysbetween3-4 		= Days Between Purchases 3 and 4
 daysbetween4-5 		= Days Between Purchases 4 and 5
 daysbetweenlastnow 	= Days Since Last Purchase
+averagedaysbetween	= Average Days Between Transactions
 
 ====================================================================
+
+
+TO DO
+- In the key.php file put a variable for $installed_location like http://example.com/stats
+	- Create an output that appends the file location so they can easily copy and paste the correct ping URL
+	- eg: http://example.stats/stats/rfm1.php?id=[Contact_ID]&......
+
+	
