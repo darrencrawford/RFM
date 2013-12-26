@@ -4,10 +4,10 @@ README
 The following are the shortcodes to be called in the URL for the 
 specific function:
 
-daysbetween1-2 = Days Between Purchases 1 and 2
-daysbetween2-3 = Days Between Purchases 2 and 3
-daysbetween3-4 = Days Between Purchases 3 and 4
-daysbetween4-5 = Days Between Purchases 4 and 5
-daysbetweenlastnow = Days Since Last Purchase
+daysbetween1-2 		= Days Between Purchases 1 and 2
+daysbetween2-3 		= Days Between Purchases 2 and 3
+daysbetween3-4 		= Days Between Purchases 3 and 4
+daysbetween4-5 		= Days Between Purchases 4 and 5
+daysbetweenlastnow 	= Days Since Last Purchase
 
 ====================================================================

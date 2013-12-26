@@ -190,6 +190,7 @@ STRING;
 	api_call($contact_id, $data, $appid, $key);
 }
 
+
 //Average days between transactions
 
 //Clickcount Goes Here
