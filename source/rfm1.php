@@ -9,10 +9,6 @@
  *	License: GPL2
  */
 
-/* 
- * To-Do
- * 
-*/
 
 //Get appid and key for OAP
 include 'keys.php';
@@ -50,19 +46,18 @@ function days_between_1($contact_id, $date_purchase, $appid, $key) {
 
 	//echo 'diff in function = '.$diff_in_days.'<br>';
 
-$data = <<<STRING
-//You must pass the contact ID as an argument to indicate which contact is being updated
-<contact id="$contact_id">
-<Group_Tag name="RFM">
-<field name="Days between Purchases 1 and 2">$diff_in_days</field>
-</Group_Tag>
-</contact>
+	$data = <<<STRING
+	//You must pass the contact ID as an argument to indicate which contact is being updated
+	<contact id="$contact_id">
+	<Group_Tag name="RFM">
+	<field name="Days between Purchases 1 and 2">$diff_in_days</field>
+	</Group_Tag>
+	</contact>
 STRING;
 
-	return $data;
+	return $data; // send the data string back for the api_call function
+	//return $logname; // send the logname back to be written
 }
-
-
 
 function api_call($contact_id, $data, $appid, $key) {
 	
@@ -88,17 +83,15 @@ function api_call($contact_id, $data, $appid, $key) {
 }
 
 
-if ($rfm = 1) {
-	$data = days_between_1($contact_id, $date_purchase, $appid, $key);
+if ($rfm = 'datepurchase1') {
+	$data = days_between_1($contact_id, $date_purchase, $appid, $key);		
 	sleep(1);
 	api_call($contact_id, $data, $appid, $key);
-	
-	//api_call($data);
-}
+	write_log($logname);
+	} else {
+		echo 'No Match';
+	}
 
-
-	//echo 'diff in days = '.$diff_in_days.'<br>';
-	//echo 'purchase date = '.$date_purchase.'<br>';
 
 
 ?>
