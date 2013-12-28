@@ -399,7 +399,6 @@ STRING;
 }
 
 
-
 //Transaction Count
 function transaction_count($contact_id, $appid, $key) {
 	//GET variables from URL
@@ -430,6 +429,25 @@ STRING;
 
 	api_call($contact_id, $data, $appid, $key);
 }
+
+function total_logins($contact_id, $appid, $key) {
+	//GET variables from URL
+	$contact_id = $_GET["id"];
+	$total_logins = $_GET["totallogins"];
+		$total_logins = $total_logins + 1;
+
+	$data = <<<STRING
+	//You must pass the contact ID as an argument to indicate which contact is being updated
+	<contact id="$contact_id">
+	<Group_Tag name="RFM">
+	<field name="Total Logins KinobodyElite">$total_logins</field>
+	</Group_Tag>
+	</contact>
+STRING;
+
+	api_call($contact_id, $data, $appid, $key);
+}
+
 
 
 if ($rfm == 'daysbetween1-2') {
@@ -465,6 +483,8 @@ if ($rfm == 'daysbetween1-2') {
 		name_purchase_3($contact_id, $appid, $key);
 	} elseif ($rfm == 'transactioncount') {
 		transaction_count($contact_id, $appid, $key);
+	} elseif ($rfm == 'totallogins') {
+		total_logins($contact_id, $appid, $key);
 	}
 		else {
 		echo "Monkey Buns! (AKA Error!)";
