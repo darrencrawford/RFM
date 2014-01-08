@@ -1,0 +1,20 @@
+Overview Login.inator
+
+1. OAP Email 
+	Send to http://kinobodyelite.com/pre-login.php?id=[contact_id]
+2. Pre-Login.php
+	Set the cookie with the contact's id #
+	Redirect to the http://kinobodyelite.com/login page
+3. After login the success page is a Quick Redirect
+	Forward to specific URL with the login.inator script
+4. Login.inator.php
+	Pull # of logins from cookie set in step #2
+	if $total_logins = 0 then send to 'Welcome To The Site'
+	if $total_logins = 1 then send to OTO for Product X
+
+Roadmap
+Grab contact tags and determine the 'if then' statements based
+on what the contact is also tagged with.
+
+Example:
+	if $total_logins = 1 and is in tag "bought product x" then show OTO for Product Y.
